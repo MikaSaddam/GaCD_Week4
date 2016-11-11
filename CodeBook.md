@@ -1,16 +1,42 @@
-## the variables, the data, and any transformations or work that you performed to clean up the data
-
 ## Code Book for Course Project
 
 ### Overview
 
-[Source](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip) of the original data:
+#### Source of the original data:
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-	https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+#### The site where the data was obtained:
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
-[Full Description](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) at the site where the data was obtained:
+The data is recordings of activities of a group of 30 volunteers aged 19 to 48 
+years old. Each person performed six activities:
 
-	http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+- WALKING
+- WALKING_UPSTAIRS
+- WALKING_DOWNSTAIRS
+- SITTING
+- STANDING
+- LAYING
+
+all while wearing a smartphone on the waist.
+
+The data was recorded with the embedded accelerometer and gyroscope on the 
+device. The obtained data was randomly partitioned into two sets, where 70% of 
+the volunteers were selected for generating the training data and 30% the test 
+data. 
+
+#### Attribute Information:
+
+For each record in the dataset is provided: 
+
+- Triaxial acceleration from the accelerometer (total acceleration) and the 
+  estimated body acceleration. 
+- Triaxial Angular velocity from the gyroscope. 
+- A 561-feature vector with time and frequency domain variables. 
+- Its activity label. 
+- An identifier of the subject who carried out the experiment.
+
+
 	
 ### Process
 
