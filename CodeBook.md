@@ -69,7 +69,7 @@ and create tiny data sets:
 11. Drop the Observation Type from the data set as it is not required for 
     this part of the process
 
-12. Use the dplyr function summaris_each to do the clever multi-column summary
+12. Use the dplyr function summarise_each to do the clever multi-column summary
 
 
 ### Output

@@ -10,7 +10,10 @@ processData <- function()
     ##   set                                                                 ##
     ## 4 Appropriately labels the data set with descriptive variable names.  ##
     ###########################################################################
-
+    
+    ##  Using dplyr for the merging and summarisation:
+    library(dplyr)
+    
     ## Read data sets and combine
     ## First check that the data folder exists:
     if (!file.exists("data")) 
@@ -59,15 +62,22 @@ processData <- function()
     names(mergedData) <- gsub("\\(|\\)", "", names(mergedData))
     names(mergedData) <- tolower(names(mergedData))
     
+    ## Load up the activity_labels to use descriptive activity names to name 
+    ## the activities in the data set:
+    activityLabels <- read.table("data/activity_labels.txt")
+    
+    mergedData = merge(mergedData,activityLabels,by.x="activity",by.y="V1",all=TRUE)    
+    mergedData$activity = mergedData$V2
+    mergedData <- mergedData[ , !(names(mergedData) %in% c("V2"))]
+    
     ## Now we have a clean data set - mergedData
     
     ## Write to csv:
     
+    write.csv(mergedData, file="data/mergedData.csv", row.names = FALSE)
+    
     ##5 From the data set in step 4, creates a second, independent tidy data 
     ##  set with the average of each variable for each activity and each subject
-    
-    ##  Using dplyr for the summarisation:
-    library(dplyr)
     
     ## Drop the Observation Type from the data set as it is not required for 
     ## this part of the process:
@@ -77,9 +87,8 @@ processData <- function()
                     group_by(activity, subject) %>% 
                         summarise_each(funs(mean))
     
-    sumData
-    
     ## Write to csv:
+    write.csv(sumData, file="data/sumData.csv", row.names = FALSE)
 }
 
 
