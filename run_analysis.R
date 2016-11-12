@@ -21,22 +21,27 @@ processData <- function()
     ## Fetch the test data, labels & subjects and join them:
     ## and add in an indicator for test:
     testData <- read.table("data/test/X_test.txt")
-    testLabels <- read.table("data/test/y_test.txt")
+    testActivities <- read.table("data/test/y_test.txt")
+    
+    ## Get activity names:
+    
     testSubjects <- read.table("data/test/subject_test.txt")
-    testOrTrainTags <- rep_len("test", nrow(testData))
-    testData <- cbind(testOrTrainTags, testSubjects, testLabels, testData)
+    observationType <- rep_len("test", nrow(testData))
+    testData <- cbind(observationType, testSubjects, testLabels, testData)
     
     ## Fetch the train data, labels & subjects and join them:
     ## and add in an indicator for training:
     trainData <- read.table("data/train/X_train.txt")
-    trainLabels <- read.table("data/train/y_train.txt")
+    trainActvities <- read.table("data/train/y_train.txt")
+    
+    ## Get activity names:
+    
     trainSubjects <- read.table("data/train/subject_train.txt")
-    testOrTrainTags <- rep_len("train", nrow(trainData))
-    trainData <- cbind(testOrTrainTags, trainSubjects, trainLabels, trainData)
+    observationType <- rep_len("train", nrow(trainData))
+    trainData <- cbind(observationType, trainSubjects, trainLabels, trainData)
 
     ## Merge the test and train data:
-    
-    theData <- rbind(testData, trainData)
+    mergedData <- rbind(testData, trainData)
     
     ## Get the column names:
     features <- read.table("data/features.txt", stringsAsFactors=FALSE)
@@ -47,18 +52,35 @@ processData <- function()
     
     ## Keep only data we want - including the first three columns, and name  
     ## them in a better way 
-    theData <- theData[, c(TRUE, TRUE, TRUE, stdmeanColumns)]
+    mergedData <- mergedData[, c(TRUE, TRUE, TRUE, stdmeanColumns)]
     
-    names(theData) <- c("TestOrTrain","Subjects","Labels",
+    names(mergedData) <- c("ObservationType","Subject","Activity",
                         columnNames[stdmeanColumns])
-    names(theData) <- gsub("\\(|\\)", "", names(theData))
-    names(theData) <- tolower(names(theData))
-
-    theData
+    names(mergedData) <- gsub("\\(|\\)", "", names(mergedData))
+    names(mergedData) <- tolower(names(mergedData))
+    
+    ## Now we have a clean data set - mergedData
+    
+    ## Write to csv:
+    
+    ##5 From the data set in step 4, creates a second, independent tidy data 
+    ##  set with the average of each variable for each activity and each subject
+    
+    ##  Using dplyr for the summarisation:
+    library(dplyr)
+    
+    ## Drop the Observation Type from the data set as it is not required for 
+    ## this part of the process:
+    mergedData <- mergedData[ , !(names(mergedData) %in% c("observationtype"))]
+    
+    sumData <- mergedData %>% 
+                    group_by(activity, subject) %>% 
+                        summarise_each(funs(mean))
+    
+    sumData
+    
+    ## Write to csv:
 }
 
 
 
-
-##5 From the data set in step 4, creates a second, independent tidy data set with the average
-##  of each variable for each activity and each subject.
