@@ -87,8 +87,8 @@ processData <- function()
                     group_by(activity, subject) %>% 
                         summarise_each(funs(mean))
     
-    ## Write to csv:
-    write.csv(sumData, file="data/sumData.csv", row.names = FALSE)
+    ## Write to txt:
+    write.table(sumData, file="data/sumData.txt", row.names = FALSE)
 }
 
 

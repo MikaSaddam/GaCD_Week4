@@ -88,9 +88,9 @@ and create tiny data sets:
     - The Subject Identifiers are integers between 1 and 30.
 - The last 66 columns are measurements.
 
-#### sumData.csv
+#### sumData.txt
 
-`sumData.csv` is a data frame with 180 observations and 68 variables.
+`sumData.txt` is a data frame with 180 observations and 68 variables.
 
 - The 1st column contains the activity names.
 - The 2nd column contains the subject Identifiers.
